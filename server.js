@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 3001;
 // we can invoke app.use(<specific_middleware_layer_here>) for every middleware layer we want to use
 // and it will add these layers to our middleware stack
 // each middleware layer is esstentially adding a functiom that specifically handles something to your flow through middleware
+
+// bind application-level middleware to an instance of the app object by using the app.use() 
+// these are built in middleware functions
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
@@ -20,8 +23,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-
-
 require("./routes")(app);
 
 // Send every other request to the React app

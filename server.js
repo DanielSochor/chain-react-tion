@@ -7,7 +7,6 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 
-
 // Define middleware here
 // we can invoke app.use(<specific_middleware_layer_here>) for every middleware layer we want to use
 // and it will add these layers to our middleware stack

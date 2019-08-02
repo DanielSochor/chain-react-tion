@@ -1,6 +1,3 @@
-//user route function
-
-
 let hashPass = require('hashPass');
 let uuidv1 = require('uuid/v1');
 let users = require('../models/users');

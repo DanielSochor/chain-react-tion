@@ -4,6 +4,7 @@ var authorizer = require("./middleware/authorizer");
 module.exports = function(app) {
     app.post("/api/user", function(request, respsonse) {
         user.create(request, respsonse);
+        console.log('test');
     });
     app.post("/api/user/login", function(request, respsonse) {
         user.login(request, respsonse);

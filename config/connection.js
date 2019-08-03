@@ -1,7 +1,7 @@
 var mysql = require("mysql");
 var config = require("config");
 
-var connection = mysql.createConnection(config.mysql.url);
+var connection = mysql.createConnection(config.mysql);
 
 connection.connect(function(error){
     if (error) throw error;

@@ -37,16 +37,17 @@ const reactConfig = require(path.join(__dirname, './config/config.static.json'))
 
 app.use(express.static(path.join(__dirname, reactConfig))); // serving react files
 
-var config = require('./config/config');
+//never used
+//var config = require('./config/config');
 
 // Define API routes here
 require("./controllers/routes")(app);
 
 // Send every other request to the React app
 // Define any API routes before this runs
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // app.get('/', function(req, res, next) {
 //   res.send('API is working properly');

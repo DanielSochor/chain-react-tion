@@ -8,9 +8,14 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
+const env = process.env.NODE_ENV || 'development';
+const reactConfig = require(path.join(__dirname, './config/config.static.json'))[env];
 //use whatever is in the environment variable PORT, or 3000 if there's nothing there.
 //when hosting your application on another service (like Heroku, Nodejitsu, and AWS), your host may independently configure the process.env.PORT variable for you; after all, your script runs in their environment.
 const PORT = process.env.PORT || 3001;
+
+var logger = require('morgan')
+app.use(logger("dev"));
 
 // Define middleware here
 // we can invoke app.use(<specific_middleware_layer_here>) for every middleware layer we want to use
@@ -29,16 +34,16 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-const env = process.env.NODE_ENV || 'development';
+
 
 //path.join returns a normalized path by merging two paths together
 //__dirname gives you the path of the currently running file.
-const reactConfig = require(path.join(__dirname, './config/config.static.json'))[env];
+
 
 app.use(express.static(path.join(__dirname, reactConfig))); // serving react files
 
 //never used
-//var config = require('./config/config');
+var config = require('./config/config');
 
 // Define API routes here
 require("./controllers/routes")(app);

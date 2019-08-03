@@ -13,7 +13,7 @@ module.exports = function(app) {
     });
     app.get("/api/user", authorizer.authenticate, function(request, respsonse) {
         console.log('app.get-"/api/user"');
-        //user.getMyself(request, respsonse);
+        user.getMyself(request, respsonse);
     });
     app.get("/api/user/:id", authorizer.authenticate, function(request, respsonse) {
         user.getUserByID(request, respsonse);

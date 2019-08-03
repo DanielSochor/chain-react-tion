@@ -1,7 +1,7 @@
 let config = {
     local: {
         mysql:{
-            url: process.env.DB_URL
+            url: process.env.DB_URL,
         },
         apiKeys:{}
     },

@@ -32,7 +32,7 @@
     "uuid": "^3.3.2"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/healthy-people/healthy-back-end"
+    "type": "git",
+    "url": "https://github.com/healthy-people/healthy-back-end"
   }
 }

@@ -1,7 +1,7 @@
 let connection = require('./connection');
 
 let orm = {
-    
+  
     select: function(query, callback) {
         let queryString = "SELECT ?? FROM ??";
         let searchCriteria = [query.columns || ['*'], query.table];
@@ -57,8 +57,7 @@ let orm = {
         connection.query(queryString, queryArray, function(error, result) {
             callback(error, result);
         });
-    },
-  
+
 };
 
 module.exports = orm;

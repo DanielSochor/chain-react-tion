@@ -57,7 +57,7 @@ let orm = {
         connection.query(queryString, queryArray, function(error, result) {
             callback(error, result);
         });
-
+    }
 };
 
 module.exports = orm;

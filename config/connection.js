@@ -1,12 +1,15 @@
 var mysql = require("mysql");
-var config = require("./config");
 
-var connection = mysql.createConnection(config.mysql.url);
+var config = require("../config.js");
 
-connection.connect(function(error){
-    if (error) throw error;
-    console.log("connected to database on " + connection.config.host + " as "
-    + connection.config.user + "@" + connection.config.database);
+var connection = mysql.createConnection(config.mysql.url); 
+
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
 });
 
 module.exports = connection;

@@ -1,5 +1,7 @@
 //loads environmental variables into process.env global variable injected by node at runtime
 require('dotenv').config();
+require("./config/connection");
+
 
 const express = require("express");
 const app = express();
@@ -11,6 +13,7 @@ const PORT = process.env.PORT || 3001;
 
 var logger = require('morgan')
 app.use(logger("dev"));
+
 
 // Define middleware here
 // when set to true, the URL-encoded data will parsed with the qs library instead of the querystring library

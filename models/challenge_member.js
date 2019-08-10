@@ -18,7 +18,6 @@ var challenge_member = {
             where: [{user_id: user_id},{group_challenge_id: group_challenge_id}],
             debug: true
         };
-        console.log("Deleted Challenge member where user = " + user_id + "and group challenge =" + group_challenge_id)
         orm.delete(query, callback)
     },
 };

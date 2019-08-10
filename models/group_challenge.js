@@ -9,6 +9,10 @@ var group_challenge = {
             debug: true
         };
         orm.insert(query, callback);
+    },
+
+    getUserChallenges: function (user_id, callback) {
+        orm.selectUserChallenges(user_id, callback);
     }
 };
 

@@ -58,7 +58,7 @@ PRIMARY KEY (id)
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
 
-CREATE TABLE challenge_logs (
+CREATE TABLE running_distance_logs (
 
 id INTEGER AUTO_INCREMENT,
 user_id int(11),
@@ -69,7 +69,58 @@ group_challenge_id int(11),
 KEY group_challenge_id (group_challenge_id),
 FOREIGN KEY (group_challenge_id) REFERENCES group_challenges(id)
 ON DELETE CASCADE ON UPDATE CASCADE,
-challenge_log LONGBLOB,
+running_distance DECIMAL(4,2),
+createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
+
+CREATE TABLE running_pace_logs (
+
+id INTEGER AUTO_INCREMENT,
+user_id int(11),
+KEY user_id (user_id),
+FOREIGN KEY (user_id) REFERENCES users(id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+group_challenge_id int(11),
+KEY group_challenge_id (group_challenge_id),
+FOREIGN KEY (group_challenge_id) REFERENCES group_challenges(id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+running_pace DECIMAL(4,2),
+createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
+
+CREATE TABLE biking_distance_logs (
+
+id INTEGER AUTO_INCREMENT,
+user_id int(11),
+KEY user_id (user_id),
+FOREIGN KEY (user_id) REFERENCES users(id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+group_challenge_id int(11),
+KEY group_challenge_id (group_challenge_id),
+FOREIGN KEY (group_challenge_id) REFERENCES group_challenges(id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+biking_distance DECIMAL(4,2),
+createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
+
+CREATE TABLE biking_pace_logs (
+
+id INTEGER AUTO_INCREMENT,
+user_id int(11),
+KEY user_id (user_id),
+FOREIGN KEY (user_id) REFERENCES users(id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+group_challenge_id int(11),
+KEY group_challenge_id (group_challenge_id),
+FOREIGN KEY (group_challenge_id) REFERENCES group_challenges(id)
+ON DELETE CASCADE ON UPDATE CASCADE,
+biking_pace DECIMAL(4,2),
 createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (id)
 

@@ -70,8 +70,10 @@ let orm = {
             callback(error, result);
         });
 
+
     }
     
+ 
 };
 
 module.exports = orm;

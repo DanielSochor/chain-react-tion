@@ -3,15 +3,17 @@ let uuidv1 = require('uuid/v1');
 let users = require('../models/users');
 
 let user = {
-    create: function(request, respsonse){
-        if (!request.body.email.includes('@') || !request.body.email.includes('.')){
-            respsonse.status(400).json({'error': 'email is not valid'});
+    create: function(request, response){
+        console.log(request.body);
+        if (!request.body.email_address.includes('@') || !request.body.email_address.includes('.')){
+            response.status(400).json({'error': 'email is not valid'});
         } else if (request.body.password !== request.body.password_confirm){
-            respsonse.status(400).json({'error': 'passwords do not match'});
+            response.status(400).json({'error': 'passwords do not match'});
         } else {
             let hashedPassword = hashPass(request.body.password);
             let userRequest = {
-                email: request.body.email,
+                //this need to be email or email_address
+                email: request.body.email_address,
                 password: hashedPassword.hash,
                 salt: hashedPassword.salt
             };
@@ -19,12 +21,12 @@ let user = {
                 if (error){
                     console.log(error);
                     if (error.sqlMessage.includes('Duplicate')){
-                        respsonse.status(400).json({'error': 'email already exists in system'});
+                        response.status(400).json({'error': 'email already exists in system'});
                     }else{
-                        respsonse.status(500).json({'error': 'oops we did something bad'});
+                        response.status(500).json({'error': 'oops we did something bad'});
                     }
                 }else{
-                    respsonse.json({
+                    response.json({
                         user_id: result.insertId,
                         email: userRequest.email
                     });

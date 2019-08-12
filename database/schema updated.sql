@@ -15,7 +15,7 @@ CREATE TABLE `users` (
     PRIMARY KEY (`user_id`) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
 
-CREATE TABLE `group_challenges` (
+CREATE TABLE `challenges` (
     `challenge_id` int(11) AUTO_INCREMENT,
     `challenge_type` VARCHAR(256),
     `challenge_name` VARCHAR(30) NOT NULL,
@@ -25,47 +25,46 @@ CREATE TABLE `group_challenges` (
     PRIMARY KEY (`challenge_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
 
-CREATE TABLE messages(
+CREATE TABLE `messages` (
     `messages_id` INTEGER AUTO_INCREMENT,
     `message_body` VARCHAR(120),
     `message_author` VARCHAR(20),
-    `group_challenge_id` int(11),
-    KEY `group_challenge_id` (`group_challenge_id`),
-    FOREIGN KEY (`group_challenge_id`) REFERENCES group_challenges(`challenge_id`)
+    `challenge_id` int(11),
+    KEY `challenge_id` (`challenge_id`),
+    FOREIGN KEY (`challenge_id`) REFERENCES `challenges`(`challenge_id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
     `user_id` int(11),
     KEY `user_id` (`user_id`),
     FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `created` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     PRIMARY KEY (`messages_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
 
-CREATE TABLE challenge_members (
-    `challenge_id` INTEGER AUTO_INCREMENT,
+CREATE TABLE `challenge_members` (
+    `challenge_id` int(11) INTEGER AUTO_INCREMENT,
     `user_id` int(11),
     KEY `user_id` (`user_id`),
     FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-    group_challenge_id int(11),
-    KEY group_challenge_id (group_challenge_id),
-    FOREIGN KEY (group_challenge_id) REFERENCES group_challenges(id)
+    KEY `challenge_id` (`challenge_id`),
+    FOREIGN KEY (`challenge_id`) REFERENCES `challenges`(`challenge_id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    `created` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (`challenge_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
 
-CREATE TABLE challenge_logs (
-    id INTEGER AUTO_INCREMENT,
-    user_id int(11),
-    KEY user_id (user_id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+CREATE TABLE `challenge_logs` (
+    `challenge_log_id` INTEGER AUTO_INCREMENT,
+    `user_id` int(11),
+    KEY `user_id` (`user_id`),
+    FOREIGN KEY (`user_id`) REFERENCES users(`user_id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-    group_challenge_id int(11),
-    KEY group_challenge_id (group_challenge_id),
-    FOREIGN KEY (group_challenge_id) REFERENCES group_challenges(id)
+    `challenge_id` int(11),
+    KEY `challenge_id` (`challenge_id`),
+    FOREIGN KEY (`challenge_id`) REFERENCES `challenges`(`challenge_id`)
     ON DELETE CASCADE ON UPDATE CASCADE,
-    challenge_log LONGBLOB,
-    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    `challenge_log` LONGBLOB,
+    `created` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (`challenge_log_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;

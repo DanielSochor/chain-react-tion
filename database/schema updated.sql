@@ -7,7 +7,7 @@ CREATE TABLE `users` (
     `user_id` int(11) NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(20) NOT NULL UNIQUE,
     `password` varchar(50)  NOT NULL,
-    `email_address` varchar(50) NOT NULL,
+    `email` varchar(50) NOT NULL,
     `salt` varchar(50)  NOT NULL,
     `session_token` varchar(50),
     `created` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,

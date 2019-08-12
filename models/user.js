@@ -5,7 +5,7 @@ var user = {
     createUser: function (newUser, callback) {
         let query = {
             table: 'users',
-            data: newUser,
+            data: newUser, //the object keys must match the table columns
             debug: true
         };
         orm.insert(query, callback);

@@ -1,3 +1,4 @@
+//creates database connection
 var mysql = require("mysql");
 
 var config = require("../config.js");

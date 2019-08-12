@@ -5,7 +5,7 @@ let users = require('../models/users');
 let user = {
     create: function(request, response){
         console.log(request.body);
-        if (!request.body.email_address.includes('@') || !request.body.email_address.includes('.')){
+        if (!request.body.email.includes('@') || !request.body.email.includes('.')){
             response.status(400).json({'error': 'email is not valid'});
         } else if (request.body.password !== request.body.password_confirm){
             response.status(400).json({'error': 'passwords do not match'});
@@ -13,10 +13,12 @@ let user = {
             let hashedPassword = hashPass(request.body.password);
             let userRequest = {
                 //this need to be email or email_address
-                email: request.body.email_address,
+                email: request.body.email,
                 password: hashedPassword.hash,
-                salt: hashedPassword.salt
+                salt: hashedPassword.salt,
+                username: 'test'
             };
+            console.log(userRequest);
             users.insertNew(userRequest, function(error, result){
                 if (error){
                     console.log(error);

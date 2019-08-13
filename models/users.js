@@ -16,6 +16,13 @@ let users = {
         };
         orm.select(query, callback);
     },
+    selectByUsername: function(username, callback){
+        let query = {
+            table: 'users',
+            where: [{username: username}]
+        };
+        orm.select(query, callback);
+    },
     updateSession: function(email, uuid, callback){
         let query = {
             table: 'users',

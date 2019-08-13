@@ -37,7 +37,8 @@ let user = {
         }
     },
     login: function(request, response){
-        users.selectByEmail(request.body.email, function(error, result){
+        console.log('login hit');
+        users.selectByUsername(request.body.username, function(error, result){
             if (error){
                 console.log(error);
                 response.status(500).json({'error': 'oops we did something bad'});

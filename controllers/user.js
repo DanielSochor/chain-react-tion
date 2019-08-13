@@ -16,7 +16,7 @@ let user = {
                 email: request.body.email,
                 password: hashedPassword.hash,
                 salt: hashedPassword.salt,
-                username: 'test'
+                username: request.body.username
             };
             console.log(userRequest);
             users.insertNew(userRequest, function(error, result){

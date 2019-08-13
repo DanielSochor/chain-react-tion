@@ -19,7 +19,7 @@ let users = {
     updateSession: function(email, uuid, callback){
         let query = {
             table: 'users',
-            data: {session: uuid},
+            data: {session_token: uuid},
             where: [{email: email.toLowerCase()}]
         };
         orm.update(query, callback);
@@ -28,22 +28,24 @@ let users = {
         let query = {
             table: 'users',
             data: {session: null},
-            where: [{session: session}]
+            where: [{session_token: session}]
         };
         orm.update(query, callback);
     },
     getMyself: function(session, callback){
         let query = {
             table: 'users',
-            columns: ['email', 'user_id', 'created', 'modified'],
-            where: [{session: session}]
+            columns: ['email', 'user_id', 'created'],
+            //columns: ['email', 'user_id', 'created', 'modified'],
+            where: [{session_token: session}]
         };
         orm.select(query, callback);
     },
     getUserByID: function(id, callback){
         let query = {
             table: 'users',
-            columns: ['email', 'user_id', 'created', 'modified'],
+            columns: ['email', 'user_id', 'created'],
+            //columns: ['email', 'user_id', 'created', 'modified'],
             where: [{user_id: id}]
         };
         orm.select(query, callback);

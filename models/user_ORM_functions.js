@@ -39,11 +39,10 @@ let users = {
         };
         orm.update(query, callback);
     },
-    getMyself: function(session, callback){
+    getUserBySession: function(session, callback){
         let query = {
             table: 'users',
             columns: ['email', 'user_id', 'created'],
-            //columns: ['email', 'user_id', 'created', 'modified'],
             where: [{session_token: session}]
         };
         orm.select(query, callback);
@@ -52,7 +51,6 @@ let users = {
         let query = {
             table: 'users',
             columns: ['email', 'user_id', 'created'],
-            //columns: ['email', 'user_id', 'created', 'modified'],
             where: [{user_id: id}]
         };
         orm.select(query, callback);

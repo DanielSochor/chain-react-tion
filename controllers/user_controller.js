@@ -1,6 +1,6 @@
 let hashPass = require('hashPass');
 let uuidv1 = require('uuid/v1');
-let users = require('../models/users');
+let users = require('../models/user_ORM_functions');
 
 let user = {
     create: function(request, response){
@@ -67,8 +67,8 @@ let user = {
             response.json({'message': 'user logged out successfully'});
         });
     },
-    getMyself: function(request, response){
-        users.getMyself(request.headers['x-session-token'], function(error, result){
+    getUserBySession: function(request, response){
+        users.getUserBySession(request.headers['x-session-token'], function(error, result){
             response.json(result[0]);
         });
     },

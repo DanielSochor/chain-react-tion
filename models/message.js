@@ -11,10 +11,10 @@ var message = {
         orm.insert(query, callback);
     },
 
-    allChallengeMessages: function (challenge_id, callback) {
+    allChallengeMessages: function (group_challenge_id, callback) {
         let query = {
             table: 'messages',
-            where: [{challenge_id: challenge_id}],
+            where: [{group_challenge_id: group_challenge_id}],
             debug: true
 
         };

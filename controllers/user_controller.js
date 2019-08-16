@@ -1,39 +1,45 @@
 let hashPass = require('hashPass');
 let uuidv1 = require('uuid/v1');
-let users = require('../models/users');
+let users = require('../models/user_ORM_functions');
 
 let user = {
-    create: function(request, respsonse){
+    create: function(request, response){
+        console.log(request.body);
         if (!request.body.email.includes('@') || !request.body.email.includes('.')){
-            respsonse.status(400).json({'error': 'email is not valid'});
+            response.status(400).json({'error': 'email is not valid'});
         } else if (request.body.password !== request.body.password_confirm){
-            respsonse.status(400).json({'error': 'passwords do not match'});
+            response.status(400).json({'error': 'passwords do not match'});
         } else {
             let hashedPassword = hashPass(request.body.password);
             let userRequest = {
+                //this need to be email or email_address
                 email: request.body.email,
                 password: hashedPassword.hash,
-                salt: hashedPassword.salt
+                salt: hashedPassword.salt,
+                username: request.body.username
             };
+            console.log(userRequest);
             users.insertNew(userRequest, function(error, result){
                 if (error){
                     console.log(error);
                     if (error.sqlMessage.includes('Duplicate')){
-                        respsonse.status(400).json({'error': 'email already exists in system'});
+                        response.status(400).json({'error': 'email already exists in system'});
                     }else{
-                        respsonse.status(500).json({'error': 'oops we did something bad'});
+                        response.status(500).json({'error': 'oops we did something bad'});
                     }
                 }else{
-                    respsonse.json({
+                    response.json({
                         user_id: result.insertId,
-                        email: userRequest.email
+                        email: userRequest.email,
+                        username: userRequest.username
                     });
                 }
             });
         }
     },
     login: function(request, response){
-        users.selectByEmail(request.body.email, function(error, result){
+        console.log('login hit');
+        users.selectByUsername(request.body.username, function(error, result){
             if (error){
                 console.log(error);
                 response.status(500).json({'error': 'oops we did something bad'});
@@ -61,8 +67,8 @@ let user = {
             response.json({'message': 'user logged out successfully'});
         });
     },
-    getMyself: function(request, response){
-        users.getMyself(request.headers['x-session-token'], function(error, result){
+    getUserBySession: function(request, response){
+        users.getUserBySession(request.headers['x-session-token'], function(error, result){
             response.json(result[0]);
         });
     },

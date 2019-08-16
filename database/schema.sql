@@ -1,5 +1,5 @@
-CREATE database healthApp;
-USE healthApp;
+CREATE database healthy;
+USE healthy;
 
 CREATE TABLE users ( 
     

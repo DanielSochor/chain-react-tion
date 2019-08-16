@@ -1,8 +1,8 @@
-let users = require('../../models/users');
+let users = require('../../models/user_ORM_functions');
 
 let authorizer = {
     authenticate: function(request, response, next){
-        users.getMyself(request.headers['x-session-token'], function(error, result){
+        users.getUserBySession(request.headers['x-session-token'], function(error, result){
             if (error){
                 console.log(error);
                 response.status(500).json({'error': 'oops we did something bad'});

@@ -11,8 +11,8 @@ module.exports = function(app) {
 
     //========Users====================================================================
 
-        user.getUserBySession(request, response);
-    });
+        //user.getUserBySession(request, response);
+    
     app.get("/api/user/:id", authorizer.authenticate, function(request, response) {
         user.getUserByID(request, response);
         console.log('app.get-"/api/user"');

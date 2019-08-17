@@ -1,15 +1,17 @@
-CREATE database healthy;
-USE healthy;
+Drop database if exists healthapp;
+CREATE database healthapp;
+USE healthapp;
 
-CREATE TABLE users ( 
-    
-id INTEGER AUTO_INCREMENT,
-username VARCHAR(20) NOT NULL UNIQUE,
-password VARCHAR(256) NOT NULL,
-user_email VARCHAR(256) NOT NULL UNIQUE,
-createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY (id)
-
+CREATE TABLE users (    
+    id int(11) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(20) NOT NULL UNIQUE,
+    password varchar(50)  NOT NULL,
+    email varchar(50) NOT NULL,
+    salt varchar(50)  NOT NULL,
+    session_token varchar(50),
+    created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    PRIMARY KEY (id) 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8MB4;
 
 CREATE TABLE group_challenges (

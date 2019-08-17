@@ -29,7 +29,7 @@ let user = {
                     }
                 }else{
                     response.json({
-                        user_id: result.insertId,
+                        id: result.insertId,
                         email: userRequest.email,
                         username: userRequest.username
                     });

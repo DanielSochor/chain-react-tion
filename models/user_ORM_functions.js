@@ -42,7 +42,7 @@ let users = {
     getUserBySession: function(session, callback){
         let query = {
             table: 'users',
-            columns: ['email', 'user_id', 'created'],
+            columns: ['email', 'id', 'created'],
             where: [{session_token: session}]
         };
         orm.select(query, callback);
@@ -50,8 +50,8 @@ let users = {
     getUserByID: function(id, callback){
         let query = {
             table: 'users',
-            columns: ['email', 'user_id', 'created'],
-            where: [{user_id: id}]
+            columns: ['email', 'id', 'created'],
+            where: [{id: id}]
         };
         orm.select(query, callback);
     }

@@ -4,7 +4,6 @@ let users = require('../models/user_ORM_functions');
 
 let user = {
     create: function(request, response){
-        console.log(request.body);
         if (!request.body.email.includes('@') || !request.body.email.includes('.')){
             response.status(400).json({'error': 'email is not valid'});
         } else if (request.body.password !== request.body.password_confirm){
@@ -12,13 +11,11 @@ let user = {
         } else {
             let hashedPassword = hashPass(request.body.password);
             let userRequest = {
-                //this need to be email or email_address
                 email: request.body.email,
                 password: hashedPassword.hash,
                 salt: hashedPassword.salt,
                 username: request.body.username
             };
-            console.log(userRequest);
             users.insertNew(userRequest, function(error, result){
                 if (error){
                     console.log(error);
@@ -38,10 +35,8 @@ let user = {
         }
     },
     login: function(request, response){
-        console.log('login hit');
         users.selectByUsername(request.body.username, function(error, result){
             if (error){
-                console.log(error);
                 response.status(500).json({'error': 'oops we did something bad'});
             } else if(!result.length) {
                 response.status(404).json({'error': 'user not found'});

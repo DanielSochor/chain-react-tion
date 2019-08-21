@@ -12,12 +12,26 @@ var challenge_log = {
     },
 
     getRunningDistLogs: function (group_challenge_id, callback) {
-        let query = {
-            table: 'running_distance_logs',
-            where: [{group_challenge_id:group_challenge_id}],
-            debug: true
-        };
-        orm.select(query, callback);
+        
+        let queryString = `SELECT 
+            group_challenges.id as group_challenge_id,
+            users.username, 
+            running_distance, 
+            user_id,
+        FROM 
+            group_challenges
+        INNER JOIN
+            running_distance_logs
+        ON
+            group_challenges.id = running_distance_logs.group_challenge_id
+        INNER JOIN 
+            users 
+        ON 
+            users.id = running_distance_logs.user_id
+        WHERE 
+            group_challenges.id = ?;`
+        let queryCondition = [group_challenge_id];
+        orm.query(queryString, queryCondition, callback);
     },
 
     createRunningPaceLog: function (newChallengeLog, callback) {
@@ -30,12 +44,25 @@ var challenge_log = {
     },
 
     getRunningPaceLogs: function (group_challenge_id, callback) {
-        let query = {
-            table: 'running_pace_logs',
-            where: [{group_challenge_id:group_challenge_id}],
-            debug: true
-        };
-        orm.select(query, callback);
+        let queryString = `SELECT 
+        group_challenges.id as group_challenge_id,
+        users.username, 
+        running_pace, 
+        user_id,
+    FROM 
+        group_challenges
+    INNER JOIN
+        running_pace_logs
+    ON
+        group_challenges.id = running_pace_logs.group_challenge_id
+    INNER JOIN 
+        users 
+    ON 
+        users.id = running_pace_logs.user_id
+    WHERE 
+        group_challenges.id = ?;`
+    let queryCondition = [group_challenge_id];
+    orm.query(queryString, queryCondition, callback);
     },
 
     createBikingPaceLog: function (newChallengeLog, callback) {
@@ -48,12 +75,25 @@ var challenge_log = {
     },
 
     getBikingPaceLogs: function (group_challenge_id, callback) {
-        let query = {
-            table: 'biking_pace_logs',
-            where: [{group_challenge_id:group_challenge_id}],
-            debug: true
-        };
-        orm.select(query, callback);
+        let queryString = `SELECT 
+        group_challenges.id as group_challenge_id,
+        users.username, 
+        biking_pace, 
+        user_id,
+    FROM 
+        group_challenges
+    INNER JOIN
+        biking_pace_logs
+    ON
+        group_challenges.id = running_pace_logs.group_challenge_id
+    INNER JOIN 
+        users 
+    ON 
+        users.id = biking_pace_logs.user_id
+    WHERE 
+        group_challenges.id = ?;`
+    let queryCondition = [group_challenge_id];
+    orm.query(queryString, queryCondition, callback);
     },
 
     createBikingDistLog: function (newChallengeLog, callback) {
@@ -66,12 +106,25 @@ var challenge_log = {
     },
 
     getBikingDistLogs: function (group_challenge_id, callback) {
-        let query = {
-            table: 'biking_distance_logs',
-            where: [{group_challenge_id:group_challenge_id}],
-            debug: true
-        };
-        orm.select(query, callback);
+        let queryString = `SELECT 
+        group_challenges.id as group_challenge_id,
+        users.username, 
+        biking_distance, 
+        user_id,
+    FROM 
+        group_challenges
+    INNER JOIN
+        biking_distance_logs
+    ON
+        group_challenges.id = biking_distance_logs.group_challenge_id
+    INNER JOIN 
+        users 
+    ON 
+        users.id = biking_distance_logs.user_id
+    WHERE 
+        group_challenges.id = ?;`
+    let queryCondition = [group_challenge_id];
+    orm.query(queryString, queryCondition, callback);
     }
 
 

@@ -61,7 +61,6 @@ let orm = {
             callback(error, result);
         });
             console.log(statement.sql);
-        
     },
     //==========================================================================
 

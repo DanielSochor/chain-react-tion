@@ -11,13 +11,22 @@ var challenge_log = {
         orm.insert(query, callback);
     },
 
+    getUserRunningDistLogs: function ({user_id, group_challenge_id}, callback) {
+        let query = {
+            table: 'running_distance_logs',
+            where: [{user_id: user_id}, {group_challenge_id: group_challenge_id}],
+            debug: true
+        };
+        orm.select(query, callback);
+    },
+
     getRunningDistLogs: function (group_challenge_id, callback) {
         
         let queryString = `SELECT 
             group_challenges.id as group_challenge_id,
             users.username, 
-            running_distance, 
-            user_id,
+            SUM(running_distance) AS running_distance, 
+            user_id
         FROM 
             group_challenges
         INNER JOIN
@@ -29,7 +38,9 @@ var challenge_log = {
         ON 
             users.id = running_distance_logs.user_id
         WHERE 
-            group_challenges.id = ?;`
+            group_challenges.id = ?
+        GROUP BY username
+        ORDER BY  running_distance DESC;`
         let queryCondition = [group_challenge_id];
         orm.query(queryString, queryCondition, callback);
     },
@@ -48,7 +59,7 @@ var challenge_log = {
         group_challenges.id as group_challenge_id,
         users.username, 
         running_pace, 
-        user_id,
+        user_id
     FROM 
         group_challenges
     INNER JOIN
@@ -79,7 +90,7 @@ var challenge_log = {
         group_challenges.id as group_challenge_id,
         users.username, 
         biking_pace, 
-        user_id,
+        user_id
     FROM 
         group_challenges
     INNER JOIN
@@ -107,22 +118,24 @@ var challenge_log = {
 
     getBikingDistLogs: function (group_challenge_id, callback) {
         let queryString = `SELECT 
-        group_challenges.id as group_challenge_id,
-        users.username, 
-        biking_distance, 
-        user_id,
-    FROM 
-        group_challenges
-    INNER JOIN
-        biking_distance_logs
-    ON
-        group_challenges.id = biking_distance_logs.group_challenge_id
-    INNER JOIN 
-        users 
-    ON 
-        users.id = biking_distance_logs.user_id
-    WHERE 
-        group_challenges.id = ?;`
+            group_challenges.id as group_challenge_id,
+            users.username, 
+            SUM(biking_distance) AS biking_distance, 
+            user_id
+        FROM 
+            group_challenges
+        INNER JOIN
+            biking_distance_logs
+        ON
+            group_challenges.id = biking_distance_logs.group_challenge_id
+        INNER JOIN 
+            users 
+        ON 
+            users.id = biking_distance_logs.user_id
+        WHERE 
+            group_challenges.id = ?
+        GROUP BY username
+        ORDER BY  biking_distance DESC;`
     let queryCondition = [group_challenge_id];
     orm.query(queryString, queryCondition, callback);
     }

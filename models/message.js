@@ -12,13 +12,24 @@ var message = {
     },
 
     allChallengeMessages: function (group_challenge_id, callback) {
-        let query = {
-            table: 'messages',
-            where: [{group_challenge_id: group_challenge_id}],
-            debug: true
-
-        };
-        orm.select(query, callback);
+        let queryString = `SELECT
+        messages.id,
+        messages.message_body, 
+        messages.createdAt, 
+        messages.user_id,
+        users.username
+    FROM 
+        messages
+    INNER JOIN
+    
+    users
+        
+    ON
+        messages.user_id = users.id
+    WHERE 
+        messages.group_challenge_id = ? ;`
+    let queryCondition = [group_challenge_id];
+    orm.query(queryString, queryCondition, callback);
     },
 
     deleteMessage: function (message_id, callback){

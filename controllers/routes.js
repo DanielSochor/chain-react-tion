@@ -1,6 +1,5 @@
 var user = require("./user_controller");
 var authorizer = require("./middleware/authenticate");
-
 var group_challenge = require("../models/group_challenge");
 var challenge_member = require("../models/challenge_member");
 var challenge_log = require("../models/challenge_log");
@@ -97,6 +96,19 @@ module.exports = function(app) {
         });
     });
 
+    app.get("/api/running_distance_logs/user/:user_id/:group_challenge_id", function(request, response) {
+        var user_id = request.params.user_id
+        var group_challenge_id = request.params.group_challenge_id
+        challenge_log.getUserRunningDistLogs(user_id, group_challenge_id, function(error, result){
+            if (error) {
+                response.json(error)
+            } else {
+                response.json(result)
+            }
+        });
+    });
+
+
 
     //=============Running Pace Logs===============================================================
 
@@ -190,4 +202,3 @@ module.exports = function(app) {
 
 
 }
-    

@@ -27,7 +27,8 @@ var message = {
     ON
         messages.user_id = users.id
     WHERE 
-        messages.group_challenge_id = ? ;`
+        messages.group_challenge_id = ? 
+    ORDER By createdAt asc;`
     let queryCondition = [group_challenge_id];
     orm.query(queryString, queryCondition, callback);
     },

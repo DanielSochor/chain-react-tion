@@ -1,6 +1,9 @@
 {
   "name": "healthy-people",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.15.1"
+  },
   "description": "healthy-people back-end",
   "main": "server.js",
   "scripts": {

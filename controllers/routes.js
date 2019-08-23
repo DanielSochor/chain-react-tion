@@ -111,6 +111,7 @@ module.exports = function(app) {
         });
     });
 
+    
     app.get("/api/running_pace_logs/:group_challenge_id", function(request, response) {
         var group_challenge_id = request.params.group_challenge_id
         challenge_log.getRunningPaceLogs(group_challenge_id, function(error, result){
@@ -122,6 +123,7 @@ module.exports = function(app) {
         });
     });
 
+//=============Biking Pace Logs===============================================================
     app.post("/api/biking_pace_logs/create", function(request, response) {
         challenge_log.createBikingPaceLog(request.body, function(error, result){
             console.log(request.body)
@@ -144,6 +146,7 @@ module.exports = function(app) {
         });
     });
 
+    //========Biking Distance Logs =============================================================
     app.post("/api/biking_distance_logs/create", function(request, response) {
         challenge_log.createBikingDistLog(request.body, function(error, result){
             console.log(request.body)
@@ -166,6 +169,8 @@ module.exports = function(app) {
         });
     });
 
+    
+//========Message Logs =============================================================
     app.post("/api/messages/create", function(request, response) {
         message.createMessage(request.body, function(error, result){
             console.log(request.body)

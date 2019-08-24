@@ -19,6 +19,7 @@ CREATE TABLE group_challenges (
 id INTEGER AUTO_INCREMENT,
 challenge_type VARCHAR(256),
 challenge_name VARCHAR(30) NOT NULL,
+challenge_length INT(11),
 start_date DATE,
 end_date DATE,
 createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
